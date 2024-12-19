@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Form</title>
+</head>
+<body>
+  <h1>Enter Your Information</h1>
+  <form id="userForm">
+    <label>First Name: <input type="text" id="firstName" required></label><br>
+    <label>Last Name: <input type="text" id="lastName" required></label><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Stored Information</h2>
+  <pre id="storedInfo"></pre>
+
+  <script>
+    const userForm = document.getElementById('userForm');
+    const storedInfo = document.getElementById('storedInfo');
+
+    userForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+
+      const response = await fetch('http://localhost:3000/store', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName })
+      });
+
+      const result = await response.json();
+      storedInfo.textContent = JSON.stringify(result, null, 2);
+    });
+  </script>
+</body>
+</html>
