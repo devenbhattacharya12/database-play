@@ -10,6 +10,7 @@
   <form id="userForm">
     <label>First Name: <input type="text" id="firstName" required></label><br>
     <label>Last Name: <input type="text" id="lastName" required></label><br>
+    <label>Email: <input type="email" id="email" required></label><br>
     <button type="submit">Submit</button>
   </form>
 
@@ -24,11 +25,12 @@
       e.preventDefault();
       const firstName = document.getElementById('firstName').value;
       const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
 
       const response = await fetch('http://localhost:3000/store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName })
+        body: JSON.stringify({ firstName, lastName, email })
       });
 
       const result = await response.json();
